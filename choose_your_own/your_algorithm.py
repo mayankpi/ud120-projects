@@ -3,6 +3,9 @@
 import matplotlib.pyplot as plt
 from prep_terrain_data import makeTerrainData
 from class_vis import prettyPicture
+from sklearn.neighbors import NearestNeighbors
+import numpy as np
+from sklearn.metrics import accuracy_score
 
 features_train, labels_train, features_test, labels_test = makeTerrainData()
 
@@ -32,7 +35,15 @@ plt.show()
 ### visualization code (prettyPicture) to show you the decision boundary
 
 
+clf = NearestNeighbors(n_neighbors = 2, algorithm = 'ball_tree').fit(features_train, labels_train)
 
+#distance, indices = clf.kneighbors(features_train, labels_train)
+
+#pred = clf.predict(features_test)
+
+#acc = accuracy_score(pred, labels_test)
+score = clf.score(features_test, labels_test)
+print score
 
 
 
