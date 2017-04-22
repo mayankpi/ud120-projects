@@ -36,6 +36,9 @@ test_color = "r"
 
 ### Your regression goes here!
 ###############################################################################################
+
+# For score based on "bonus" and "Long term incentive"
+
 # features_list2 = ["bonus", "long_term_incentive"]
 # data2 = featureFormat( dictionary, features_list2, remove_any_zeroes=True)
 # target2, features2 = targetFeatureSplit( data2 )
