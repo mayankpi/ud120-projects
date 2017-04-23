@@ -57,7 +57,88 @@ features_list = [poi, feature_1, feature_2]
 data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
 
+# eachsal ='None'
+# eacheso = 'None'
+# for each in data_dict:
+#     if data_dict[each]['salary'] == 200000:
+#         eachsal = each
+#     if data_dict[each]['exercised_stock_options'] == 1000000:
+#         eacheso = each
+
+# print eachsal
+# print eacheso
+# temp1 = data_dict['LAY KENNETH L']['salary']
+# print ("temp 1", temp1)
+# temp2 = data_dict['LAY KENNETH L']['exercised_stock_options']
+# print ("temp 2 ",temp2)
+
+# temp1 = finance_features[1][0]
+# print temp1
+# temp2 = finance_features[1][1]
+# print temp2
+
+maximum_sal = finance_features[1][0]
+minimum_sal = finance_features[1][0]
+
+print maximum_sal
+print minimum_sal
+
+print ""
+
+maximum_eso = finance_features[1][1]
+minimum_eso = finance_features[1][1]
+
+print maximum_eso
+print minimum_eso
+print ""
+
+
+for each in data_dict:
+    if data_dict[each]['salary'] > maximum_sal and data_dict[each]['salary'] != 'NaN':
+        maximum_sal = data_dict[each]['salary']
+    if data_dict[each]['salary'] < minimum_sal and data_dict[each]['salary'] != 'NaN':
+        minimum_sal = data_dict[each]['salary']
+
+    if data_dict[each]['exercised_stock_options'] > maximum_eso and data_dict[each]['exercised_stock_options'] != 'NaN':
+        maximum_eso = data_dict[each]['exercised_stock_options']
+    if data_dict[each]['exercised_stock_options'] < minimum_eso and data_dict[each]['exercised_stock_options'] != 'NaN':
+        minimum_eso = data_dict[each]["exercised_stock_options"]
+
+print maximum_sal
+print minimum_sal
+
+
+min1 = (float)(minimum_sal)
+max1 = (float)(maximum_sal)
+
+min2 = (float)(minimum_eso)
+max2 = (float)(maximum_eso)
+
+print ""
+print maximum_eso
+print minimum_eso
+print ""
+
+
+temp3 = (200000.0 - min1)/(max1 - min1)
+temp4 = (1000000.0 - min2)/(max2 - min2)
+
+print temp3
+print temp4
+
 finance_features = scale(finance_features, axis=0, with_mean=True, with_std=True, copy=True)
+
+#array1 = [[200000], [1000000]]
+
+# print finance_features[1][0]
+
+# print finance_features[1][1]
+
+# temp1 = (finance_features[1][0]*200000.0)/temp1
+# temp2 = (finance_features[1][1]*1000000.0)/temp2
+
+# print temp1
+# print temp2
 
 
 ### in the "clustering with 3 features" part of the mini-project,
