@@ -13,6 +13,8 @@ import matplotlib.pyplot as plt
 import sys
 sys.path.append("../tools/")
 from feature_format import featureFormat, targetFeatureSplit
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import scale
 
 
 
@@ -44,14 +46,18 @@ data_dict = pickle.load( open("../final_project/final_project_dataset.pkl", "r")
 data_dict.pop("TOTAL", 0)
 
 
+
 ### the input features we want to use 
 ### can be any key in the person-level dictionary (salary, director_fees, etc.) 
 feature_1 = "salary"
 feature_2 = "exercised_stock_options"
+#feature_3 = "total_payments"
 poi  = "poi"
 features_list = [poi, feature_1, feature_2]
 data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
+
+finance_features = scale(finance_features, axis=0, with_mean=True, with_std=True, copy=True)
 
 
 ### in the "clustering with 3 features" part of the mini-project,
@@ -59,14 +65,27 @@ poi, finance_features = targetFeatureSplit( data )
 ### for f1, f2, _ in finance_features:
 ### (as it's currently written, the line below assumes 2 features)
 for f1, f2 in finance_features:
-    plt.scatter( f1, f2 )
+    plt.scatter( f1, f2)
 plt.show()
 
 ### cluster here; create predictions of the cluster labels
 ### for the data and store them to a list called pred
+kmeans = KMeans(n_clusters = 2, random_state = 0)
 
+kmeans.fit(finance_features)
+pred = kmeans.predict(finance_features)
 
+max = 0
+min = 999999999999
+for each in data_dict:
+    if data_dict[each]["salary"] != 'NaN':
+        if data_dict[each]["salary"] > max:
+            max = data_dict[each]["salary"]
+        if data_dict[each]["salary"] < min:
+            min = data_dict[each]["salary"]
 
+print max
+print min
 
 ### rename the "name" parameter when you change the number of features
 ### so that the figure gets saved to a different file
